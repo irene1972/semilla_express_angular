@@ -2,18 +2,24 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import propiedadRoutes from './routes/propiedadRoutes.js';
-
+/*
 const corsOptions ={
    origin:'*', 
    credentials:true,
    optionSuccessStatus:200,
 };
-
+*/
 const app=express();
+
+app.use(cors({
+  origin: 'http://localhost:4200',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 
 dotenv.config();
 
