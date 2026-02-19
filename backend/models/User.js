@@ -1,4 +1,5 @@
 import pool from '../config/db.js';
+//import mysql from 'mysql2/promise';
 
 export class User{
     constructor(role,name,surname,nick,email,password,image){
@@ -21,6 +22,18 @@ export class User{
         } catch (error) {
             return false;
         }
+
+        //debug sql
+        /*
+        const sql = `SELECT * FROM users`;
+
+        const values = [];
+
+        console.log(mysql.format(sql, values));
+
+        const result = await pool.query(sql, values);
+        return result;
+        */
         
     }
 }
