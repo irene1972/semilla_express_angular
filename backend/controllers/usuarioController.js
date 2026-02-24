@@ -18,6 +18,28 @@ const getUsers=async(req,res)=>{
     
 }
 
+const createUser = async (req, res) => {
+    
+        const {nombre,apellidos,email,password}=req.body;
+        
+        if(!nombre | !apellidos | !email | !password){
+            return res.status(400).json({error:'Todos los campos son obligatorios'});
+        }
+    
+        try {
+            const usuario=new User(nombre,apellidos,email,password);
+            const resultado=await usuario.insert();
+            if(resultado[0].affectedRows===1){
+                res.json({mensaje:'Datos insertados correctamente'});
+            }else{
+                return res.status(500).json({error:'Ha habido un error al insertar los datos en la bd'});
+            }
+        } catch (error) {
+            return res.status(500).json({error:'Ha habido un error al insertar los datos'});
+        }
+        
+}
+
 const envioEmail=async (req, res) => {
     //res.json('Funciona!');
 
@@ -38,5 +60,6 @@ const envioEmail=async (req, res) => {
 
 export {
     envioEmail,
+    createUser,
     getUsers
 }
