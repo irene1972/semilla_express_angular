@@ -7,9 +7,13 @@ const getUsers=async(req,res)=>{
         const usuario=new User();
         const resultado=await usuario.getAll();
         //const resultado=await pool.query('SELECT * FROM usuarios');
-        res.json(resultado[0]);
+        if(resultado[0]){
+            res.json(resultado[0]);
+        }else{
+            return res.status(500).json({error:'Ha habido un error al consultar la base de datos'});
+        }
     } catch (error) {
-        return res.status(500).json({error:'Ha habido un error al consultar la base de datos'});
+        return res.status(500).json({error:'Ha habido un error al consultar los datos'});
     }
     
 }
